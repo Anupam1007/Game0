@@ -12,7 +12,7 @@ public class Row implements FreeFall {
     private List<GameComponent> gameComponentList;
     List<GameComponentType> listOfTypes = new ArrayList<>();
 
-    public Row(int y, int numOfGameComponent, int SIZE_X, Board board) {
+    public Row(int y, int numOfGameComponent, List<Integer> distFromLeftMarginList, int SIZE_X, Board board) {
         listOfTypes.add(GameComponentType.APPLE);
         listOfTypes.add(GameComponentType.COOKIE);
 
@@ -20,13 +20,11 @@ public class Row implements FreeFall {
         gameComponentList = new ArrayList<>(numOfGameComponent);
         Random random = new Random();
 
-
-        for (int j = 0; j < numOfGameComponent; j++) {
-            int i = random.nextInt(numOfGameComponent);
-            int distFromLeftMargin = (SIZE_X / (numOfGameComponent + 1)) * (j + 1);
+        for(int dist: distFromLeftMarginList){
+            int r = random.nextInt(numOfGameComponent);
             gameComponentList.add(
                     GameComponentFactory.getGameComponent(
-                            board, listOfTypes.get(i), distFromLeftMargin));
+                            board, listOfTypes.get(r), dist));
         }
     }
 

@@ -26,6 +26,8 @@ public class Board extends JPanel implements ActionListener {
 
     Random random;
 
+    List<Integer> distFromLeftMarginList;
+
     /*
     1. this list should enforce a max size - SIZE_Y/100 dist between each being 100 denom
     2. this list should initially be empty
@@ -50,11 +52,17 @@ public class Board extends JPanel implements ActionListener {
         rows = new ArrayList<>();
 
         gameComponents = new ArrayList<>();
+        distFromLeftMarginList = new ArrayList<>();
 
 
+        for (int j = 0; j < distinctGameComponent; j++) {
+            int i = random.nextInt(distinctGameComponent);
+            int distFromLeftMargin = (SIZE_X / (distinctGameComponent + 1)) * (j + 1);
+            distFromLeftMarginList.add(distFromLeftMargin);
+        }
 
         for (int i = 0; i < this.capacity; i++) {
-            rows.add(new Row(-1 * (i * SIZE_Y / this.capacity), distinctGameComponent, SIZE_X, this));
+            rows.add(new Row(-1 * (i * SIZE_Y / this.capacity), distinctGameComponent, distFromLeftMarginList, SIZE_X, this));
         }
 
         userComponent = GameComponentFactory.getUserComponent(this, SIZE_X / 2);
