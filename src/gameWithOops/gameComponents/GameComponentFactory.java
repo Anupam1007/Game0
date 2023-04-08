@@ -1,5 +1,7 @@
 package gameWithOops.gameComponents;
 
+import gameWithOops.constants.Constant;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,30 +9,24 @@ public class GameComponentFactory {
     public static Image getImageCustom(Board board, String path) {
         ImageIcon imageIcon = new ImageIcon(Board.class.getResource(path));
         Image image = imageIcon.getImage(); // transform it
-        Image newimg = image.getScaledInstance(board.getSizeOfComponentToBeFittedX(), board.getSizeOfComponentToBeFittedY(), java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        Image newimg = image.getScaledInstance(board.getSizeOfComponentToBeFittedX(),
+                board.getSizeOfComponentToBeFittedY(),
+                java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
         imageIcon = new ImageIcon(newimg);
         return imageIcon.getImage();
     }
 
     public static GameComponent getGameComponent(Board board, GameComponentType gameComponentType, int x) {
         if (gameComponentType.equals(GameComponentType.APPLE)) {
-            return new Apple(x, getImageCustom(board, "../ImagesFolder/apple.png"));
+            return new Apple(x, getImageCustom(board, Constant.applePath));
         } else if (gameComponentType.equals(GameComponentType.COOKIE)) {
-            return new Cookie(x, getImageCustom(board, "../ImagesFolder/cookie.png"));
+            return new Cookie(x, getImageCustom(board, Constant.cookiePath));
         } else throw new RuntimeException("invalid Type");
     }
 
     public static UserComponent getUserComponent(Board board, int x) {
-        return new UserComponent(x, getImageCustom(board, "../ImagesFolder/basket.png"), board.getSizeOfComponentToBeFittedY());
+        return new UserComponent(x, getImageCustom(board,
+                Constant.basketPath),
+                board.getSizeOfComponentToBeFittedY());
     }
-
-//    public static GameComponent getGameComponent(Board board, GameComponentType gameComponentType) {
-//        if (gameComponentType.equals(GameComponentType.APPLE)) {
-//            return new Apple(board.getSIZE_X() / 4, 0, 2, getImageCustom(board, "../ImagesFolder/apple.png"));
-//        } else if (gameComponentType.equals(GameComponentType.COOKIE)) {
-//            return new Cookie(board.getSIZE_X() * 3 / 4, 0, 2, getImageCustom(board, "../ImagesFolder/cookie.png"));
-//        } else if (gameComponentType.equals(GameComponentType.USER)) {
-//            return new Cookie(board.getSIZE_X() * 3 / 4, 0, 2, getImageCustom(board, "../ImagesFolder/basket.png"));
-//        } else throw new RuntimeException("invalid Type");
-//    }
 }

@@ -33,9 +33,14 @@ public class Board extends JPanel implements ActionListener {
 
      */
     List<GameComponent> gameComponents;
-    UserComponent userComponent;
 
-    public Board(int SIZE_X, int SIZE_Y, int capacity, int speed) {
+    public UserComponent getUserComponent() {
+        return userComponent;
+    }
+
+    private UserComponent userComponent;
+
+    public Board(int SIZE_X, int SIZE_Y, int capacity, int speed, int distinctGameComponent) {
         this.SIZE_Y = SIZE_Y;
         this.SIZE_X = SIZE_X;
         this.capacity = capacity;
@@ -46,13 +51,15 @@ public class Board extends JPanel implements ActionListener {
 
         gameComponents = new ArrayList<>();
 
+
+
         for (int i = 0; i < this.capacity; i++) {
-            rows.add(new Row(-1 * (i * SIZE_Y / this.capacity), 2, SIZE_X, this));
+            rows.add(new Row(-1 * (i * SIZE_Y / this.capacity), distinctGameComponent, SIZE_X, this));
         }
 
         userComponent = GameComponentFactory.getUserComponent(this, SIZE_X / 2);
 
-        addKeyListener(new GameKeyAdapter());
+        addKeyListener(new GameKeyAdapter(this));
         setFocusable(true);
         this.setPreferredSize(new Dimension(SIZE_X, SIZE_Y));
 
@@ -70,7 +77,7 @@ public class Board extends JPanel implements ActionListener {
                 g.drawImage(gameComponent.getImage(), gameComponent.getX(), row.getY(), this);
             }
         }
-        g.drawImage(userComponent.getImage(), userComponent.getX(), SIZE_Y-getSizeOfComponentToBeFittedY(), this);
+        g.drawImage(userComponent.getImage(), userComponent.getX(), SIZE_Y - getSizeOfComponentToBeFittedY(), this);
     }
 
     @Override
@@ -78,9 +85,9 @@ public class Board extends JPanel implements ActionListener {
         for (Row row : rows) {
             row.fallDown(speed);
 
-            if (row.getY() >= SIZE_Y - 2*userComponent.getSize()) {
+            if (row.getY() >= SIZE_Y - 2 * userComponent.getSize()) {
                 row.rearrange();
-                row.setY(- 2*userComponent.getSize());
+                row.setY(-2 * userComponent.getSize());
             }
         }
         repaint();

@@ -34,4 +34,10 @@ public class UserComponent {
     public void setSize(int size) {
         this.size = size;
     }
+
+    public void moveRight() {
+    }
+
+    public void moveLeft() {
+    }
 }
