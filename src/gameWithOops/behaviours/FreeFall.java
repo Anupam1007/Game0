@@ -1,5 +1,5 @@
 package gameWithOops.behaviours;
 
 public interface FreeFall {
-    public void fallDown();
+    public void fallDown(int speed);
 }

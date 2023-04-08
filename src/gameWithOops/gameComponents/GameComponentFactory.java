@@ -12,13 +12,13 @@ public class GameComponentFactory {
         return imageIcon.getImage();
     }
 
-    public static GameComponent getGameComponent(Board board, GameComponentType gameComponentType, int x, int y) {
+    public static GameComponent getGameComponent(Board board, GameComponentType gameComponentType, int x) {
         if (gameComponentType.equals(GameComponentType.APPLE)) {
-            return new Apple(x, y, 2, getImageCustom(board, "../ImagesFolder/apple.png"));
+            return new Apple(x, getImageCustom(board, "../ImagesFolder/apple.png"));
         } else if (gameComponentType.equals(GameComponentType.COOKIE)) {
-            return new Cookie(x, y, 2, getImageCustom(board, "../ImagesFolder/cookie.png"));
+            return new Cookie(x, getImageCustom(board, "../ImagesFolder/cookie.png"));
         } else if (gameComponentType.equals(GameComponentType.USER)) {
-            return new Cookie(x, y, 2, getImageCustom(board, "../ImagesFolder/basket.png"));
+            return new Cookie(x, getImageCustom(board, "../ImagesFolder/basket.png"));
         } else throw new RuntimeException("invalid Type");
     }
 

@@ -8,35 +8,13 @@ public abstract class GameComponent {
     private int x;
 
 
-    private int y;
-    private int speed;
-
-
-    public GameComponent(int x, int y, int speed, Image image) {
+    public GameComponent(int x, Image image) {
         this.image = image;
         this.x = x;
-        this.y = y;
-        this.speed = speed;
     }
 
     public Image getImage() {
         return image;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
     }
 
     public int getX() {
