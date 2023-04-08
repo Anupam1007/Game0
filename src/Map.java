@@ -1,9 +1,6 @@
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 
 public class Map{
 	static int B_X=400;
@@ -24,14 +21,14 @@ public class Map{
     	imageIcon = new ImageIcon(newimg); 
     	img[0] = imageIcon.getImage();
     	
-    	imageIcon = new ImageIcon(Game.class.getResource("ImagesFolder/dot.png")); // load the image to a imageIcon
+    	imageIcon = new ImageIcon(Game.class.getResource("ImagesFolder/basket.png")); // load the image to a imageIcon
     	image = imageIcon.getImage(); // transform it 
     	newimg = image.getScaledInstance(20,20,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
     	imageIcon = new ImageIcon(newimg); 
     	bat = imageIcon.getImage();
     	
     	
-    	imageIcon = new ImageIcon(Game.class.getResource("ImagesFolder/head.png")); // load the image to a imageIcon
+    	imageIcon = new ImageIcon(Game.class.getResource("ImagesFolder/cookie.png")); // load the image to a imageIcon
     	image = imageIcon.getImage(); // transform it 
     	newimg = image.getScaledInstance(20,20,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
     	imageIcon = new ImageIcon(newimg); 
