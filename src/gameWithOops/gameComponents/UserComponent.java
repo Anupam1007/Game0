@@ -8,10 +8,13 @@ public class UserComponent {
     private Image image;
     private int size;
 
-    public UserComponent(int x, Image image, int size) {
+    Board board;
+
+    public UserComponent(int x, Image image, int size, Board board) {
         this.x = x;
         this.image = image;
         this.size=size;
+        this.board = board;
     }
 
     public int getX() {
@@ -36,8 +39,10 @@ public class UserComponent {
     }
 
     public void moveRight() {
+        this.setX(board.distFromLeftMarginList.get(1));
     }
 
     public void moveLeft() {
+        this.setX(board.distFromLeftMarginList.get(0));
     }
 }

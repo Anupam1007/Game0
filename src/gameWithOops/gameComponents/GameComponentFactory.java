@@ -27,6 +27,6 @@ public class GameComponentFactory {
     public static UserComponent getUserComponent(Board board, int x) {
         return new UserComponent(x, getImageCustom(board,
                 Constant.basketPath),
-                board.getSizeOfComponentToBeFittedY());
+                board.getSizeOfComponentToBeFittedY(), board);
     }
 }
