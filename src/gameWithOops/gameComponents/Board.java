@@ -33,12 +33,7 @@ public class Board extends JPanel implements ActionListener {
 
      */
     List<GameComponent> gameComponents;
-    GameComponent userComponent;
-
-    public <T extends Enum<?>> T randomEnum(Class<T> clazz) {
-        int x = random.nextInt(clazz.getEnumConstants().length);
-        return clazz.getEnumConstants()[x];
-    }
+    UserComponent userComponent;
 
     public Board(int SIZE_X, int SIZE_Y, int capacity, int speed) {
         this.SIZE_Y = SIZE_Y;
@@ -49,21 +44,13 @@ public class Board extends JPanel implements ActionListener {
 
         rows = new ArrayList<>();
 
-
         gameComponents = new ArrayList<>();
-        int distBetweenTwoComponent = SIZE_Y / (2 * capacity);
-        int leftX = SIZE_X / 4;
-        int rightX = SIZE_X * 3 / 4;
-        int[] leftAndRight = new int[]{leftX, rightX};
-        // r.nextInt(2)
 
-
-        for (int i = 0; i < capacity; i++) {
-            // doesnt ensure only one object in a row
-            int id = random.nextInt(2);
-            rows.add(new Row(-1 * (i * SIZE_Y / capacity), 2, SIZE_X, this));
+        for (int i = 0; i < this.capacity; i++) {
+            rows.add(new Row(-1 * (i * SIZE_Y / this.capacity), 2, SIZE_X, this));
         }
-        //userComponent = GameComponentFactory.getGameComponent(this, GameComponentType.USER);
+
+        userComponent = GameComponentFactory.getUserComponent(this, SIZE_X / 2);
 
         addKeyListener(new GameKeyAdapter());
         setFocusable(true);
@@ -83,16 +70,17 @@ public class Board extends JPanel implements ActionListener {
                 g.drawImage(gameComponent.getImage(), gameComponent.getX(), row.getY(), this);
             }
         }
+        g.drawImage(userComponent.getImage(), userComponent.getX(), SIZE_Y-getSizeOfComponentToBeFittedY(), this);
     }
 
-    //@Override
+    @Override
     public void actionPerformed(ActionEvent e) {
         for (Row row : rows) {
             row.fallDown(speed);
 
-            if (row.getY() >= SIZE_Y) {
+            if (row.getY() >= SIZE_Y - 2*userComponent.getSize()) {
                 row.rearrange();
-                row.setY(0);
+                row.setY(- 2*userComponent.getSize());
             }
         }
         repaint();

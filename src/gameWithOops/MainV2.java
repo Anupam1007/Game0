@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class MainV2 extends JFrame {
     public MainV2() {
-        Board board = new Board(400,400, 5, 10);
+        Board board = new Board(400,400, 5, 2);
         add(board);
         setResizable(false);
         pack();

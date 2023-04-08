@@ -8,9 +8,10 @@ public class UserComponent {
     private Image image;
     private int size;
 
-    public UserComponent(int x, Image image) {
+    public UserComponent(int x, Image image, int size) {
         this.x = x;
         this.image = image;
+        this.size=size;
     }
 
     public int getX() {
@@ -23,10 +24,6 @@ public class UserComponent {
 
     public Image getImage() {
         return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
     }
 
     public int getSize() {

@@ -17,9 +17,11 @@ public class GameComponentFactory {
             return new Apple(x, getImageCustom(board, "../ImagesFolder/apple.png"));
         } else if (gameComponentType.equals(GameComponentType.COOKIE)) {
             return new Cookie(x, getImageCustom(board, "../ImagesFolder/cookie.png"));
-        } else if (gameComponentType.equals(GameComponentType.USER)) {
-            return new Cookie(x, getImageCustom(board, "../ImagesFolder/basket.png"));
         } else throw new RuntimeException("invalid Type");
+    }
+
+    public static UserComponent getUserComponent(Board board, int x) {
+        return new UserComponent(x, getImageCustom(board, "../ImagesFolder/basket.png"), board.getSizeOfComponentToBeFittedY());
     }
 
 //    public static GameComponent getGameComponent(Board board, GameComponentType gameComponentType) {
