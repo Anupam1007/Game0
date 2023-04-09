@@ -1,5 +1,7 @@
 package gameWithOops.gameComponents;
 
+import gameWithOops.board.Board;
+
 import java.awt.*;
 
 public class UserComponent {
@@ -39,10 +41,10 @@ public class UserComponent {
     }
 
     public void moveRight() {
-        this.setX(board.distFromLeftMarginList.get(1));
+        this.setX(board.getDistFromLeftMarginList().get(1));
     }
 
     public void moveLeft() {
-        this.setX(board.distFromLeftMarginList.get(0));
+        this.setX(board.getDistFromLeftMarginList().get(0));
     }
 }

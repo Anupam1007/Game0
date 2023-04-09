@@ -1,6 +1,6 @@
 package gameWithOops.userComponent;
 
-import gameWithOops.Row;
+import gameWithOops.row.Row;
 import gameWithOops.gameComponents.GameComponent;
 import gameWithOops.gameComponents.GameComponentType;
 import gameWithOops.gameComponents.UserComponent;

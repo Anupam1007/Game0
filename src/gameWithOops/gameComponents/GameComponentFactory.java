@@ -1,5 +1,6 @@
 package gameWithOops.gameComponents;
 
+import gameWithOops.board.Board;
 import gameWithOops.constants.Constant;
 
 import javax.swing.*;
