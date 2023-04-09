@@ -2,6 +2,7 @@ package gameWithOops.gameComponents;
 
 import gameWithOops.Adapters.GameKeyAdapter;
 import gameWithOops.Row;
+import gameWithOops.userComponent.UserComponentService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,13 +13,13 @@ import java.util.List;
 import java.util.Random;
 
 public class Board extends JPanel implements ActionListener {
-    private int SIZE_X;
+    private final int SIZE_X;
 
-    private int SIZE_Y;
+    private final int SIZE_Y;
 
     private int capacity;
 
-    private int speed;
+    private final int speed;
 
     List<Row> rows;
 
@@ -26,7 +27,10 @@ public class Board extends JPanel implements ActionListener {
 
     Random random;
 
+    GameStatus gameStatus;
+
     List<Integer> distFromLeftMarginList;
+    private UserComponentService userComponentService;
 
     /*
     1. this list should enforce a max size - SIZE_Y/100 dist between each being 100 denom
@@ -35,12 +39,13 @@ public class Board extends JPanel implements ActionListener {
 
      */
     List<GameComponent> gameComponents;
+    private int points;
 
     public UserComponent getUserComponent() {
         return userComponent;
     }
 
-    private UserComponent userComponent;
+    private final UserComponent userComponent;
 
     public Board(int SIZE_X, int SIZE_Y, int capacity, int speed, int distinctGameComponent) {
         this.SIZE_Y = SIZE_Y;
@@ -49,23 +54,25 @@ public class Board extends JPanel implements ActionListener {
         this.speed = speed;
         random = new Random();
 
+
         rows = new ArrayList<>();
 
         gameComponents = new ArrayList<>();
         distFromLeftMarginList = new ArrayList<>();
+        gameStatus = GameStatus.INPROGRESS;
 
 
         for (int j = 0; j < distinctGameComponent; j++) {
-            int i = random.nextInt(distinctGameComponent);
             int distFromLeftMargin = (SIZE_X / (distinctGameComponent + 1)) * (j + 1);
             distFromLeftMarginList.add(distFromLeftMargin);
         }
 
         for (int i = 0; i < this.capacity; i++) {
-            rows.add(new Row(-1 * (i * SIZE_Y / this.capacity), distinctGameComponent, distFromLeftMarginList, SIZE_X, this));
+            rows.add(new Row(-1 * (i * SIZE_Y / this.capacity), distinctGameComponent, distFromLeftMarginList, this));
         }
 
         userComponent = GameComponentFactory.getUserComponent(this, SIZE_X / 2);
+        userComponentService = new UserComponentService(userComponent);
 
         addKeyListener(new GameKeyAdapter(this));
         setFocusable(true);
@@ -73,19 +80,19 @@ public class Board extends JPanel implements ActionListener {
 
         timer = new Timer(10, this);
         timer.start();
-
     }
 
     @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    public void paintComponent(Graphics graphics) {
+        super.paintComponent(graphics);
 
         for (Row row : rows) {
             for (GameComponent gameComponent : row.getGameComponentList()) {
-                g.drawImage(gameComponent.getImage(), gameComponent.getX(), row.getY(), this);
+                graphics.drawImage(gameComponent.getImage(), gameComponent.getX(), row.getY(), this);
             }
         }
-        g.drawImage(userComponent.getImage(), userComponent.getX(), SIZE_Y - getSizeOfComponentToBeFittedY(), this);
+        graphics.drawImage(userComponent.getImage(), userComponent.getX(), SIZE_Y - getSizeOfComponentToBeFittedY(), this);
+        showScore(graphics);
     }
 
     @Override
@@ -94,11 +101,47 @@ public class Board extends JPanel implements ActionListener {
             row.fallDown(speed);
 
             if (row.getY() >= SIZE_Y - 2 * userComponent.getSize()) {
+                // check if cookie collide with basket or not
+                if (userComponentService.isGameOver(row)) {
+                    gameOver(getGraphics());
+                } else {
+                    if (userComponentService.caughtSuccessfuly(row)) {
+                        points++;
+                    }
+                }
+
                 row.rearrange();
                 row.setY(-2 * userComponent.getSize());
             }
         }
-        repaint();
+
+        if (gameStatus.equals(GameStatus.INPROGRESS)) {
+            repaint();
+        }
+    }
+
+    private void showScore(Graphics graphics) {
+        String msg = String.valueOf(points);
+        Font small = new Font("Helvetica", Font.BOLD, 16);
+
+        graphics.setColor(Color.black);
+        graphics.setFont(small);
+        graphics.drawString(msg, (SIZE_X) / 2, getSizeOfComponentToBeFittedY());
+    }
+
+    private void gameOver(Graphics graphics) {
+
+        String msg = "Game Over";
+        Font small = new Font("Helvetica", Font.BOLD, 14);
+        FontMetrics metr = getFontMetrics(small);
+
+        graphics.setColor(Color.BLACK);
+        graphics.setFont(small);
+        graphics.drawString(msg, (SIZE_X - metr.stringWidth(msg)) / 2, SIZE_Y / 2);
+
+        gameStatus = GameStatus.OVER;
+        timer.stop();
+        //System.exit(0);
     }
 
     public int getSizeOfComponentToBeFittedX() {
@@ -108,5 +151,4 @@ public class Board extends JPanel implements ActionListener {
     public int getSizeOfComponentToBeFittedY() {
         return (int) (SIZE_Y / Math.sqrt(SIZE_Y));
     }
-
 }

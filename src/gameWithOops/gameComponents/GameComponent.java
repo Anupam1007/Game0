@@ -7,10 +7,13 @@ public abstract class GameComponent {
     private Image image;
     private int x;
 
+    private GameComponentType type;
 
-    public GameComponent(int x, Image image) {
+    public GameComponent(int x, Image image, GameComponentType type) {
         this.image = image;
         this.x = x;
+
+        this.type=type;
     }
 
     public Image getImage() {
@@ -25,5 +28,7 @@ public abstract class GameComponent {
         this.x = x;
     }
 
-
+    public GameComponentType getType() {
+        return type;
+    }
 }
