@@ -6,7 +6,7 @@ import gameWithOops.gameComponents.GameComponentType;
 import gameWithOops.gameComponents.UserComponent;
 
 public class UserComponentService {
-    private UserComponent userComponent;
+    private final UserComponent userComponent;
     public UserComponentService(UserComponent userComponent){
         this.userComponent = userComponent;
     }
@@ -22,9 +22,7 @@ public class UserComponentService {
     }
 
     private boolean isCaught(GameComponent gameComponent) {
-        if(gameComponent.getX() == userComponent.getX())
-            return true;
-        return false;
+        return gameComponent.getX() == userComponent.getX();
     }
 
     public boolean caughtSuccessfuly(Row row) {
@@ -35,6 +33,4 @@ public class UserComponentService {
         }
         return false;
     }
-
-
 }
