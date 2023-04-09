@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class Row implements FreeFall {
     int y;
-    private List<GameComponent> gameComponentList;
+    private final List<GameComponent> gameComponentList;
     List<GameComponentType> listOfTypes = new ArrayList<>();
 
     public Row(int y, int numOfGameComponent, List<Integer> distFromLeftMarginList, Board board) {
@@ -20,11 +20,32 @@ public class Row implements FreeFall {
         gameComponentList = new ArrayList<>(numOfGameComponent);
         Random random = new Random();
 
-        for(int dist: distFromLeftMarginList){
+//        int r = random.nextInt(numOfGameComponent);
+//        for(int dist: distFromLeftMarginList){
+//
+//            gameComponentList.add(
+//                    GameComponentFactory.getGameComponent(
+//                            board, listOfTypes.get(r), dist));
+//        }
+
+        /*
+        this ensures that two consecutive items in a row aren't same
+         */
+        int prev=-1;
+        for (int dist : distFromLeftMarginList) {
             int r = random.nextInt(numOfGameComponent);
-            gameComponentList.add(
+
+            if(prev==r){
+                gameComponentList.add(
+                        GameComponentFactory.getGameComponent(
+                                board, listOfTypes.get((r+1)%listOfTypes.size()), dist));
+            } else {
+                gameComponentList.add(
                     GameComponentFactory.getGameComponent(
                             board, listOfTypes.get(r), dist));
+            }
+
+            prev=r;
         }
     }
 
@@ -55,6 +76,6 @@ public class Row implements FreeFall {
 
     @Override
     public void fallDown(int speed) {
-        this.setY(y+speed);
+        this.setY(y + speed);
     }
 }

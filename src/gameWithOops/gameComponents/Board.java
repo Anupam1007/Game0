@@ -17,8 +17,6 @@ public class Board extends JPanel implements ActionListener {
 
     private final int SIZE_Y;
 
-    private int capacity;
-
     private final int speed;
 
     List<Row> rows;
@@ -30,7 +28,7 @@ public class Board extends JPanel implements ActionListener {
     GameStatus gameStatus;
 
     List<Integer> distFromLeftMarginList;
-    private UserComponentService userComponentService;
+    private final UserComponentService userComponentService;
 
     /*
     1. this list should enforce a max size - SIZE_Y/100 dist between each being 100 denom
@@ -50,7 +48,6 @@ public class Board extends JPanel implements ActionListener {
     public Board(int SIZE_X, int SIZE_Y, int capacity, int speed, int distinctGameComponent) {
         this.SIZE_Y = SIZE_Y;
         this.SIZE_X = SIZE_X;
-        this.capacity = capacity;
         this.speed = speed;
         random = new Random();
 
@@ -61,14 +58,13 @@ public class Board extends JPanel implements ActionListener {
         distFromLeftMarginList = new ArrayList<>();
         gameStatus = GameStatus.INPROGRESS;
 
-
         for (int j = 0; j < distinctGameComponent; j++) {
             int distFromLeftMargin = (SIZE_X / (distinctGameComponent + 1)) * (j + 1);
             distFromLeftMarginList.add(distFromLeftMargin);
         }
 
-        for (int i = 0; i < this.capacity; i++) {
-            rows.add(new Row(-1 * (i * SIZE_Y / this.capacity), distinctGameComponent, distFromLeftMarginList, this));
+        for (int i = 0; i < capacity; i++) {
+            rows.add(new Row(-1 * (i * SIZE_Y / capacity), distinctGameComponent, distFromLeftMarginList, this));
         }
 
         userComponent = GameComponentFactory.getUserComponent(this, SIZE_X / 2);
