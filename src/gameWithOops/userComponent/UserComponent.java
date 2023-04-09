@@ -1,4 +1,4 @@
-package gameWithOops.gameComponents;
+package gameWithOops.userComponent;
 
 import gameWithOops.board.Board;
 

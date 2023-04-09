@@ -3,7 +3,6 @@ package gameWithOops.userComponent;
 import gameWithOops.row.Row;
 import gameWithOops.gameComponents.GameComponent;
 import gameWithOops.gameComponents.GameComponentType;
-import gameWithOops.gameComponents.UserComponent;
 
 public class UserComponentService {
     private final UserComponent userComponent;

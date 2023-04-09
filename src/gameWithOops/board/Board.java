@@ -4,7 +4,7 @@ import gameWithOops.row.Row;
 import gameWithOops.gameComponents.GameComponent;
 import gameWithOops.gameComponents.GameComponentFactory;
 import gameWithOops.gameComponents.GameStatus;
-import gameWithOops.gameComponents.UserComponent;
+import gameWithOops.userComponent.UserComponent;
 import gameWithOops.userComponent.UserComponentService;
 
 import java.util.ArrayList;

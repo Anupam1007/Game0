@@ -2,6 +2,7 @@ package gameWithOops.gameComponents;
 
 import gameWithOops.board.Board;
 import gameWithOops.constants.Constant;
+import gameWithOops.userComponent.UserComponent;
 
 import javax.swing.*;
 import java.awt.*;
