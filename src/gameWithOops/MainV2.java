@@ -1,14 +1,15 @@
 package gameWithOops;
 
-import gameWithOops.gameComponents.Board;
+import gameWithOops.board.Board;
+import gameWithOops.board.BoardService;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MainV2 extends JFrame {
     public MainV2() {
-        Board board = new Board(400,400, 5, 2, 2);
-        add(board);
+        BoardService boardService = new BoardService(400,400, 5, 4, 2);
+        add(boardService);
         setResizable(false);
         pack();
         setTitle("CatchV2");
