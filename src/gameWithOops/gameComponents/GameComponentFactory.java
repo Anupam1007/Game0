@@ -18,9 +18,9 @@ public class GameComponentFactory {
 
     public static GameComponent getGameComponent(Board board, GameComponentType gameComponentType, int x) {
         if (gameComponentType.equals(GameComponentType.APPLE)) {
-            return new Apple(x, getImageCustom(board, Constant.applePath));
+            return new Apple(x, getImageCustom(board, Constant.applePath), gameComponentType);
         } else if (gameComponentType.equals(GameComponentType.COOKIE)) {
-            return new Cookie(x, getImageCustom(board, Constant.cookiePath));
+            return new Cookie(x, getImageCustom(board, Constant.cookiePath), gameComponentType);
         } else throw new RuntimeException("invalid Type");
     }
 

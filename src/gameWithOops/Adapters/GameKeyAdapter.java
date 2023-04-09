@@ -1,6 +1,5 @@
 package gameWithOops.Adapters;
 
-import gameWithOops.GameV2;
 import gameWithOops.gameComponents.Board;
 
 import java.awt.event.KeyAdapter;
@@ -24,9 +23,5 @@ public class GameKeyAdapter extends KeyAdapter {
         if (key == KeyEvent.VK_RIGHT) {
             board.getUserComponent().moveRight();
         }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
     }
 }

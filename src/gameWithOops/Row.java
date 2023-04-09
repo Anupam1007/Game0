@@ -12,7 +12,7 @@ public class Row implements FreeFall {
     private List<GameComponent> gameComponentList;
     List<GameComponentType> listOfTypes = new ArrayList<>();
 
-    public Row(int y, int numOfGameComponent, List<Integer> distFromLeftMarginList, int SIZE_X, Board board) {
+    public Row(int y, int numOfGameComponent, List<Integer> distFromLeftMarginList, Board board) {
         listOfTypes.add(GameComponentType.APPLE);
         listOfTypes.add(GameComponentType.COOKIE);
 
